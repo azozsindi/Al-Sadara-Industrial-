@@ -246,7 +246,7 @@ export default function App() {
         <div
           role="status"
           aria-live="polite"
-          className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:end-6 z-40 max-w-md bg-[#0B1E3B] text-white px-4 py-3 rounded-xl border border-white/10 shadow-lg flex items-center justify-between gap-4"
+          className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] inset-x-4 sm:inset-x-auto sm:end-6 z-40 max-w-md bg-[#0B1E3B] text-white px-4 py-3 rounded-xl border border-white/10 shadow-lg flex items-center justify-between gap-4"
         >
           <div className="flex items-center gap-2.5 text-xs sm:text-sm">
             <Check className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />

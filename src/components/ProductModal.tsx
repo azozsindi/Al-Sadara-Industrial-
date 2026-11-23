@@ -40,11 +40,16 @@ export function ProductModal({
 
   useEffect(() => {
     if (!product) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [product, onClose]);
 
   if (!product) return null;
@@ -112,12 +117,27 @@ export function ProductModal({
         className="relative w-full max-w-4xl max-h-[92dvh] bg-white rounded-t-2xl sm:rounded-2xl border border-slate-200 overflow-y-auto lg:overflow-hidden flex flex-col lg:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Sticky Mobile Header Bar so Close Button Is Always Reachable */}
+        <div className="lg:hidden sticky top-0 z-20 flex items-center justify-between gap-3 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-slate-200 shrink-0">
+          <p className="font-display font-bold text-sm text-[#0B1E3B] truncate">
+            {productName}
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t(UI_COPY.modal.closeLabel, lang)}
+            className="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200/80 flex items-center justify-center text-slate-700 transition-colors cursor-pointer shrink-0"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Desktop Close Button */}
         <button
           type="button"
           onClick={onClose}
           aria-label={t(UI_COPY.modal.closeLabel, lang)}
-          className="absolute top-3 end-3 sm:top-3.5 sm:end-3.5 z-20 w-10 h-10 sm:w-9 sm:h-9 rounded-lg bg-white/95 hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 transition-colors cursor-pointer"
+          className="hidden lg:flex absolute top-3.5 end-3.5 z-20 w-9 h-9 rounded-lg bg-white/95 hover:bg-slate-100 border border-slate-200 items-center justify-center text-slate-700 transition-colors cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
@@ -339,7 +359,7 @@ export function ProductModal({
             </div>
           </div>
 
-          <div className="sticky bottom-0 -mx-4 sm:mx-0 px-4 sm:px-0 py-3 sm:pt-4 sm:pb-0 bg-white border-t border-slate-200 flex items-center justify-end gap-2.5 sm:gap-3">
+          <div className="sticky bottom-0 -mx-4 sm:mx-0 px-4 sm:px-0 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:pt-4 sm:pb-0 bg-white border-t border-slate-200 flex items-center justify-end gap-2.5 sm:gap-3">
             <button
               type="button"
               onClick={onClose}

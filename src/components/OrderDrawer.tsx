@@ -54,11 +54,16 @@ export function OrderDrawer({
 
   useEffect(() => {
     if (!isOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -202,7 +207,7 @@ export function OrderDrawer({
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-5 min-h-[48px] text-sm font-semibold text-white bg-[#0E6F3C] hover:bg-[#0B5930] rounded-lg transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 min-h-[48px] text-center text-sm font-semibold text-white bg-[#0E6F3C] hover:bg-[#0B5930] rounded-lg transition-colors"
                 >
                   <Send className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>{t(UI_COPY.drawer.sendWhatsapp, lang)}</span>
@@ -496,7 +501,7 @@ export function OrderDrawer({
 
         {/* Drawer Footer */}
         {!submittedRef && (
-          <div className="px-4 sm:px-6 py-4 border-t border-slate-200 bg-[#F8FAFC] space-y-2.5 shrink-0">
+          <div className="px-4 sm:px-6 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] border-t border-slate-200 bg-[#F8FAFC] space-y-2.5 shrink-0">
             <button
               type="submit"
               form="order-submit-form"
