@@ -1,0 +1,6 @@
+{
+  "name": "شركة الصدارة للصناعة",
+  "description": "كتالوج منتجات وطلبات شركة الصدارة للصناعة — أكياس بلاستيكية، سفرة، رولات شرنك، وطباعة احترافية حتى 8 ألوان في جدة.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
